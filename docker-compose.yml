@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:3.2
+    volumes:
+      - mongo-data:/data/db
+    expose:
+      - "27017"
+  app:
+    image: message-app:v0.1
+    ports:
+      - "8000:80"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL=mongodb://admin:PKWACCJIWZSPJPGK@sl-us-south-1-portal.8.dblayer.com:22964,sl-us-south-1-portal.6.dblayer.com:22964/admin?ssl=true/messageApp
+volumes:
+  mongo-data:
